@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RepairJournalApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(RepairJournalApplication.class, args);
+
+		System.out.println("Hello RepairJournal !!!");
 	}
 
 }
