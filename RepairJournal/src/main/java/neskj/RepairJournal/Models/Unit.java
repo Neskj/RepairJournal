@@ -1,9 +1,9 @@
 package neskj.RepairJournal.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "units")
@@ -14,6 +14,9 @@ public class Unit {
     private long id;
     private String type;
     private String serial;
+
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Log> logs=new ArrayList<>();
 
     public long getId() {
         return id;
@@ -35,12 +38,7 @@ public class Unit {
         this.serial = serial;
     }
 
-    @Override
-    public String toString() {
-        return "Unit{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", serial='" + serial + '\'' +
-                '}';
+    public List<Log> getLogs() {
+        return logs;
     }
 }
