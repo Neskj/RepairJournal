@@ -1,7 +1,7 @@
 package neskj.RepairJournal.Controllers;
 
-import neskj.RepairJournal.Models.Log;
-import neskj.RepairJournal.Models.Unit;
+import neskj.RepairJournal.Models.PersistenceEntitys.Log;
+import neskj.RepairJournal.Models.PersistenceEntitys.Unit;
 import neskj.RepairJournal.Repositoryes.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,24 +26,16 @@ public class JournalController {
     @PostMapping("/data")
     public void newUnit(@RequestBody Unit unit){
 
-        logger.info("\n\nNew unit --->> "+unit.getSerial());
 
-        repository.save(unit);
 
     }
 
     @GetMapping("/data")
     public Iterable<Unit>viewUnits(){
 
-       Iterable allData=repository.findAll();
-
-       for(Object x:allData){
-           logger.info("\nsend data: "+x.toString());
-       }
-
-        return allData;
+       return null;
     }
-
+/*
     @PostMapping("/test")
     public void test(){
 
@@ -69,7 +61,6 @@ public class JournalController {
 
         unit2.getLogs().add(log2);
         repository.save(unit2);
-
-
     }
+*/
 }

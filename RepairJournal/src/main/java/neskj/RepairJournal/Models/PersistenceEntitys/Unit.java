@@ -1,6 +1,7 @@
-package neskj.RepairJournal.Models;
+package neskj.RepairJournal.Models.PersistenceEntitys;
 
 import jakarta.persistence.*;
+import neskj.RepairJournal.Models.PersistenceEntitys.Log;
 
 import java.util.ArrayList;
 import java.util.List;

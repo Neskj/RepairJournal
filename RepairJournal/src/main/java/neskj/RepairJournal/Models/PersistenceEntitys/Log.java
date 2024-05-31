@@ -1,4 +1,4 @@
-package neskj.RepairJournal.Models;
+package neskj.RepairJournal.Models.PersistenceEntitys;
 
 import jakarta.persistence.*;
 
