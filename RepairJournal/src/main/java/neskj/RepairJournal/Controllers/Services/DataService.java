@@ -39,7 +39,11 @@ public class DataService {
         logger.info("\n\n < DataService successfully save new data >\n");
     }
 
-    public void getAllData(){
+    public Iterable<Unit> getAllData(){
+
+        logger.info("\n\n DataService return all logs from database");
+
+        return repository.findAll();
 
     }
 }

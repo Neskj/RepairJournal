@@ -36,34 +36,6 @@ public class JournalController {
     @GetMapping("/data")
     public Iterable<Unit>viewUnits(){
 
-       return null;
+       return dataService.getAllData();
     }
-/*
-    @PostMapping("/test")
-    public void test(){
-
-        Unit unit1=new Unit();
-        unit1.setType("Кабельный барабан");
-        unit1.setSerial("106701234");
-
-        Log log1=new Log();
-        log1.setDefect("Оторван разъем");
-        log1.setUnit(unit1);
-
-        unit1.getLogs().add(log1);
-
-        repository.save(unit1);
-
-        Unit unit2=new Unit();
-        unit2.setType("Робот FW-100");
-        unit2.setSerial("FAY-0156");
-
-        Log log2=new Log();
-        log2.setDefect("Сгорел светильник");
-        log2.setUnit(unit2);
-
-        unit2.getLogs().add(log2);
-        repository.save(unit2);
-    }
-*/
 }
