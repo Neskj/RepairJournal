@@ -24,4 +24,13 @@ public class HttpData {
     public String getDefect() {
         return defect;
     }
+
+    @Override
+    public String toString() {
+        return "HttpData{" +
+                "type='" + type + '\'' +
+                ", serial='" + serial + '\'' +
+                ", defect='" + defect + '\'' +
+                '}';
+    }
 }

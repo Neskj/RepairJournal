@@ -1,5 +1,6 @@
 package neskj.RepairJournal.Controllers;
 
+import neskj.RepairJournal.Controllers.Services.DataService;
 import neskj.RepairJournal.Models.HttpData.HttpData;
 import neskj.RepairJournal.Models.PersistenceEntitys.Log;
 import neskj.RepairJournal.Models.PersistenceEntitys.Unit;
@@ -17,29 +18,19 @@ public class JournalController {
 
     private final Logger logger=Logger.getLogger(JournalController.class.getName());
 
-    private final UnitRepository repository;
+    private final DataService dataService;
 
     @Autowired
-    JournalController(UnitRepository repository){
-        this.repository=repository;
+    JournalController(DataService dataService){
+        this.dataService=dataService;
     }
 
     @PostMapping("/data")
     public void newUnit(@RequestBody HttpData incomingData){
 
-        Unit unit=new Unit();
-        unit.setType(incomingData.getType());
-        unit.setSerial(incomingData.getSerial());
+        logger.info("\n\nMethod POST get a new data: \n"+incomingData.toString()+"\n");
 
-        Log log=new Log();
-        log.setDefect(incomingData.getDefect());
-        log.setUnit(unit);
-
-        unit.getLogs().add(log);
-
-        repository.save(unit);
-
-
+        dataService.addData(incomingData);
     }
 
     @GetMapping("/data")
