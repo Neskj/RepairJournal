@@ -36,6 +36,6 @@ public class JournalController {
     @GetMapping("/data")
     public Iterable<Unit>viewUnits(){
 
-       return dataService.getAllData();
+       return dataService.getAllDataQuery();
     }
 }

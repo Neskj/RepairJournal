@@ -5,6 +5,7 @@ import neskj.RepairJournal.Models.PersistenceEntitys.Log;
 import neskj.RepairJournal.Models.PersistenceEntitys.Unit;
 import neskj.RepairJournal.Repositoryes.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
@@ -39,11 +40,18 @@ public class DataService {
         logger.info("\n\n < DataService successfully save new data >\n");
     }
 
-    public Iterable<Unit> getAllData(){
+    @Deprecated
+    public Iterable<Unit> getAllData(){     //стандартная реализация некорректно работает
 
         logger.info("\n\n DataService return all logs from database");
 
         return repository.findAll();
+    }
 
+    public Iterable<Unit> getAllDataQuery(){
+
+        logger.info("\n\n DataService return all logs from database");
+
+        return repository.customGetAllData();
     }
 }
