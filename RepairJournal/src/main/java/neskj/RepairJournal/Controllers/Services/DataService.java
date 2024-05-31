@@ -5,7 +5,6 @@ import neskj.RepairJournal.Models.PersistenceEntitys.Log;
 import neskj.RepairJournal.Models.PersistenceEntitys.Unit;
 import neskj.RepairJournal.Repositoryes.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
@@ -25,19 +24,26 @@ public class DataService {
 
     public void addData(HttpData incomingData){
 
-        Unit unit=new Unit();
-        unit.setType(incomingData.getType());
-        unit.setSerial(incomingData.getSerial());
+        if(repository.checkBySerial(incomingData.getSerial())!=null){
 
-        Log log=new Log();
-        log.setDefect(incomingData.getDefect());
-        log.setUnit(unit);
+            System.out.println("Oshibka - takoi seriynik uje est'"); //тут продолжаем. надо внедрить логику добавления новой записи в журнале
 
-        unit.getLogs().add(log);
+        } else {
 
-        repository.save(unit);
+            Unit unit = new Unit();
+            unit.setType(incomingData.getType());
+            unit.setSerial(incomingData.getSerial());
 
-        logger.info("\n\n < DataService successfully save new data >\n");
+            Log log = new Log();
+            log.setDefect(incomingData.getDefect());
+            log.setUnit(unit);
+
+            unit.getLogs().add(log);
+
+            repository.save(unit);
+
+            logger.info("\n\n < DataService successfully save new unit >\n");
+        }
     }
 
     @Deprecated

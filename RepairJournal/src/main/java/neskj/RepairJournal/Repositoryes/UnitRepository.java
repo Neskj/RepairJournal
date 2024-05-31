@@ -8,4 +8,7 @@ public interface UnitRepository extends CrudRepository<Unit,Long> {
 
     @Query("select u.type,u.serial,l.defect from Unit u join u.logs l where l.defect is not null ")
     Iterable<Unit> customGetAllData();
+
+    @Query("select u from Unit u where u.serial =:serial")
+    Unit checkBySerial(String serial);
 }
