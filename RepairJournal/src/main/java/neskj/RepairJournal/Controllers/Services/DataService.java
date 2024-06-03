@@ -26,7 +26,18 @@ public class DataService {
 
         if(repository.checkBySerial(incomingData.getSerial())!=null){
 
-            System.out.println("Oshibka - takoi seriynik uje est'"); //тут продолжаем. надо внедрить логику добавления новой записи в журнале
+            logger.info("\n\nDetect Unit in Database");
+
+            Unit unit=repository.checkBySerial(incomingData.getSerial());
+
+            Log log=new Log();
+            log.setDefect(incomingData.getDefect());
+            log.setUnit(unit);
+
+            unit.getLogs().add(log);
+            repository.save(unit);
+
+            logger.info("\n\nNew log successefully add to unit "+unit.getSerial());
 
         } else {
 
