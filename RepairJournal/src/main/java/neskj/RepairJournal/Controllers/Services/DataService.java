@@ -65,10 +65,24 @@ public class DataService {
         return repository.findAll();
     }
 
-    public Iterable<Unit> getAllDataQuery(){
+    public Iterable<Unit> getAllDataQuery() {
 
         logger.info("\n\n DataService return all logs from database");
 
         return repository.customGetAllData();
+    }
+
+    public void updateUnitStatus(HttpData incomingData) {
+
+        Unit unit = repository.checkBySerial(incomingData.getSerial());
+
+        for (Log x : unit.getLogs()) {
+            if (x.getDefect().equals(incomingData.getDefect())) {
+                x.setStatus("Готов");
+                logger.info("\n\nSet status Done to Log\n");
+            }
+        }
+
+        repository.save(unit);
     }
 }
