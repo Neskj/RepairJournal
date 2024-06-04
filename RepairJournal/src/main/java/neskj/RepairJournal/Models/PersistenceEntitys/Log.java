@@ -2,6 +2,9 @@ package neskj.RepairJournal.Models.PersistenceEntitys;
 
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Entity
 @Table(name = "logs")
 public class Log {
@@ -10,6 +13,8 @@ public class Log {
     @GeneratedValue
     private long id;
     private String defect;
+    private final String date=new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+    private String status="В ремонте";
 
     @ManyToOne
     @JoinColumn(name = "unitid")
@@ -23,6 +28,10 @@ public class Log {
         return defect;
     }
 
+    public String getDate() { return date; }
+
+    public String getStatus() { return status; }
+
     public Unit getUnit() {
         return unit;
     }
@@ -30,6 +39,8 @@ public class Log {
     public void setDefect(String defect) {
         this.defect = defect;
     }
+
+    public void setStatus(String status) { this.status = status; }
 
     public void setUnit(Unit unit) {
         this.unit = unit;
