@@ -4,10 +4,7 @@ import neskj.RepairJournal.Controllers.Services.DataService;
 import neskj.RepairJournal.Models.HttpData.HttpData;
 import neskj.RepairJournal.Models.PersistenceEntitys.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
@@ -51,5 +48,13 @@ public class JournalController {
         logger.info("\n\nReturned all not done Units\n");
 
         return dataService.findNotDone();
+    }
+
+    @GetMapping("/find")
+    public Iterable<Unit> findConcreteUnit(@RequestParam String serial){
+
+        logger.info("\n\n< Find concrete unit whith > "+serial);
+
+        return dataService.findConcreteUnit(serial);
     }
 }

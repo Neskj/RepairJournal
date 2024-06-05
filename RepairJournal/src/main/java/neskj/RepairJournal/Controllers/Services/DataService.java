@@ -90,4 +90,9 @@ public class DataService {
 
         return repository.findAllNotDone();
     }
+
+    public Iterable<Unit> findConcreteUnit(String serial){
+
+        return repository.findUnitBySerial(serial);
+    }
 }

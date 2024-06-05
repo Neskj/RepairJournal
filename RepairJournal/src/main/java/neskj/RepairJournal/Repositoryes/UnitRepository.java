@@ -14,4 +14,7 @@ public interface UnitRepository extends CrudRepository<Unit,Long> {
 
     @Query("select u.type,u.serial,l.date,l.defect,l.status from Unit u join u.logs l where l.status='В ремонте' ")
     Iterable<Unit> findAllNotDone();
+
+    @Query("select u.type,u.serial,l.date,l.defect,l.status from Unit u join u.logs l where u.serial =:serial")
+    Iterable<Unit> findUnitBySerial(String serial);
 }
