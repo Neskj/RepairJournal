@@ -44,4 +44,12 @@ public class JournalController {
 
         logger.info("\n\nStatus is change in " + incomingData.getSerial() + "\n");
     }
+
+    @GetMapping("/notdone")
+    public Iterable<Unit> findAllNotDone(){
+
+        logger.info("\n\nReturned all not done Units\n");
+
+        return dataService.findNotDone();
+    }
 }

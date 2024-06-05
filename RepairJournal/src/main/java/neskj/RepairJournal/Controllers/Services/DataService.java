@@ -85,4 +85,9 @@ public class DataService {
 
         repository.save(unit);
     }
+
+    public Iterable<Unit> findNotDone(){
+
+        return repository.findAllNotDone();
+    }
 }
