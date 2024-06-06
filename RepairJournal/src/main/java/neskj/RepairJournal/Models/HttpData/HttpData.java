@@ -6,7 +6,7 @@ public class HttpData {
     private final String serial;
     private final String defect;
 
-    HttpData(String type, String serial, String defect) {
+    public HttpData(String type, String serial, String defect) {
 
         this.type = type;
         this.serial = serial;
