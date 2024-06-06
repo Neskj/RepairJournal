@@ -1,6 +1,7 @@
 package neskj.RepairJournal.Controllers.Services;
 
 import neskj.RepairJournal.Models.HttpData.HttpData;
+import neskj.RepairJournal.Models.PersistenceEntitys.Log;
 import neskj.RepairJournal.Models.PersistenceEntitys.Unit;
 import neskj.RepairJournal.Repositoryes.UnitRepository;
 import org.junit.jupiter.api.Test;
@@ -78,5 +79,22 @@ public class DataServiceTest {
         verify(repository, times(1)).customGetAllData();
     }
 
+    @Test
+    public void updateUnitStatusHappyFlow() {
+
+        HttpData testData = new HttpData("FW-100", "12345", "Разгерметизация");
+
+        Log testLog = new Log();
+        testLog.setDefect("Разгерметизация");
+
+        Unit expectUnit = new Unit();
+        expectUnit.getLogs().add(testLog);
+
+        when(repository.checkBySerial(testData.getSerial())).thenReturn(expectUnit);
+
+        dataService.updateUnitStatus(testData);
+
+        assertEquals("Готов", expectUnit.getLogs().getFirst().getStatus());
+    }
 
 }
