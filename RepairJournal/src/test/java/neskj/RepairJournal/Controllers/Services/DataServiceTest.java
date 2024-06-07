@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,6 +96,45 @@ public class DataServiceTest {
         dataService.updateUnitStatus(testData);
 
         assertEquals("Готов", expectUnit.getLogs().getFirst().getStatus());
+        verify(repository).save(expectUnit);
     }
 
+    @Test
+    public void findNotDoneHappyFlow() {
+
+        Unit firstUnit = new Unit();
+        Log firstLog = new Log();
+        firstUnit.getLogs().add(firstLog);
+
+        Unit secondUnit = new Unit();
+        Log secondLog = new Log();
+        firstUnit.getLogs().add(secondLog);
+
+        List<Unit> testList = new ArrayList<>(Arrays.asList(firstUnit, secondUnit));
+
+        when(repository.findAllNotDone()).thenReturn(testList);
+
+        List<Unit> resultList = (List<Unit>) dataService.findNotDone();
+
+        assertEquals(2, resultList.size());
+        verify(repository, times(1)).findAllNotDone();
+    }
+
+    @Test
+    public void findConcreteUnit() {
+
+        String testSerial = "FAY1234";
+
+        Unit expectUnit = new Unit();
+        expectUnit.setSerial("FAY1234");
+
+        List<Unit> expectList = new ArrayList<>(Arrays.asList(expectUnit));  // вообще там Unit, непонятно почему я решил что интерфейс вернет Iterable
+
+        when(repository.findUnitBySerial(testSerial)).thenReturn(expectList);
+
+        List<Unit> resultList = (List<Unit>) dataService.findConcreteUnit(testSerial);
+
+        assertEquals(expectList, resultList);
+        verify(repository, times(1)).findUnitBySerial(testSerial);
+    }
 }
