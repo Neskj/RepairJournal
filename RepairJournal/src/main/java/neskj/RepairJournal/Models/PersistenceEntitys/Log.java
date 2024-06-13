@@ -15,6 +15,7 @@ public class Log {
     private String defect;
     private final String date=new SimpleDateFormat("dd.MM.yyyy").format(new Date());
     private String status="В ремонте";
+    private String complete="Работа еще не выполнена";
 
     @ManyToOne
     @JoinColumn(name = "unitid")
@@ -32,6 +33,10 @@ public class Log {
 
     public String getStatus() { return status; }
 
+    public String getComplete() {
+        return complete;
+    }
+
     public Unit getUnit() {
         return unit;
     }
@@ -44,5 +49,9 @@ public class Log {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public void setComplete(String complete) {
+        this.complete = complete;
     }
 }

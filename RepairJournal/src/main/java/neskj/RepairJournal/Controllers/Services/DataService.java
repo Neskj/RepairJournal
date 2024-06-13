@@ -7,6 +7,7 @@ import neskj.RepairJournal.Repositoryes.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -72,6 +73,7 @@ public class DataService {
         return repository.customGetAllData();
     }
 
+    @Deprecated
     public void updateUnitStatus(HttpData incomingData) {
 
         Unit unit = repository.checkBySerial(incomingData.getSerial());
@@ -94,5 +96,20 @@ public class DataService {
     public Iterable<Unit> findConcreteUnit(String serial){
 
         return repository.findUnitBySerial(serial);
+    }
+
+    public void setComplete(String serial,String complete){
+
+        Unit findedUnit=repository.checkBySerial(serial);
+
+        for(Log x:findedUnit.getLogs()){
+            if(x.getStatus().equals("В ремонте")){
+                x.setStatus("Готов");
+                x.setComplete(complete);
+                logger.info("\n\nUpdate status and completed works in unit\n");
+            }
+        }
+
+        repository.save(findedUnit);
     }
 }

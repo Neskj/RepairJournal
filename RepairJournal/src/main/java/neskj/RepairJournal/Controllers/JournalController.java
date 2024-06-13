@@ -57,4 +57,10 @@ public class JournalController {
 
         return dataService.findConcreteUnit(serial);
     }
+
+    @PostMapping("/complete")
+    public void setComplete(@RequestParam String serial,@RequestParam String complete){
+
+        dataService.setComplete(serial, complete);
+    }
 }
